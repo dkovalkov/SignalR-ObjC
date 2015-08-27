@@ -68,6 +68,10 @@
     //operation.shouldUseCredentialStorage = self.shouldUseCredentialStorage;
     //operation.credential = self.credential;
     //operation.securityPolicy = self.securityPolicy;
+    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
+    [securityPolicy setAllowInvalidCertificates:YES];
+    operation.securityPolicy= securityPolicy;
+
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if(block) {
             block([[SRNegotiationResponse alloc] initWithDictionary:responseObject], nil);
